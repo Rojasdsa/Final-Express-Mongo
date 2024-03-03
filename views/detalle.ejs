@@ -1,0 +1,80 @@
+<%- include("template/cabecera", {tituloWeb: 'Detalles del Personaje' }) %>
+
+    <div class="container">
+        <h1>Detalles del Personaje</h1>
+        <% if (error){ %>
+            <%= mensaje %>
+                <a href="/chars" class="btn btn-dark btn-block my-2">Volver</a>
+                <% } %>
+                    <% if (!error) { %>
+                        <form id="editar" data-id="<%= char._id %>">
+                            <input type="text" value="<%=char.nombre %>" class="form-control my-2" name="nombre"
+                                id="nombreInput">
+                            </input>
+                            <input type="text" value="<%=char.casa %>" class="form-control my-2" name="casa"
+                                id="casaInput">
+                            </input>
+                            <input type="text" value="<%=char.estado %>" class="form-control my-2"
+                                name="estado" id="estadoInput">
+                            </input>
+                            <input type="text" value="<%=char.edad %>" class="form-control my-2"
+                                name="edad" id="edadInput">
+                            </input>
+                            <input type="text" value="<%=char.titulo %>" class="form-control my-2"
+                                name="titulo" id="tituloInput">
+                            </input>
+                            <button class="btn btn-primary btn-sm" data-id="<%= char._id %>">Actualizar</button>
+                        </form>
+                        <hr>
+                        <button id="eliminar" class="btn btn-danger btn-sm" type="submit">Eliminar</button>
+
+                        <% } %>
+
+                            <%- include("template/footer") %>
+
+                                <script>
+                                    // Script para eliminar Personaje
+                                    const btnEliminar = document.getElementById('eliminar')
+                                    btnEliminar.addEventListener('click', async () => {
+                                        console.log(btnEliminar.dataset.id)
+                                        try {
+                                            const data = await fetch(`/chars/${btnEliminar.dataset.id}`, {
+                                                method: 'delete'
+                                            })
+                                            const res = await data.json()
+                                            console.log(res)
+                                            if (res.estado) {
+                                                window.location.href = '/chars'
+                                            } else {
+                                                console.log(res)
+                                            }
+                                        } catch (error) {
+                                            console.log(error)
+                                        }
+                                    })
+
+                                                                      
+                                    // Script para editar Personaje
+                                    const formEditar = document.querySelector('#editar');
+                                    formEditar.addEventListener('submit', async (e) => {
+                                        e.preventDefault()
+                                        const id = formEditar.elements['id'].value
+                                        const nombre = formEditar.elements['nombre'].value
+                                        const tipo = formEditar.elements['tipo'].value
+                                        const descripcion = formEditar.elements['descripcion'].value
+                                        const _id = formEditar.dataset.id
+                                        const data = await fetch(`/chars/${_id}`, {
+                                            method: 'PUT',
+                                            headers: {
+                                                'Content-Type':'application/json'
+                                            },
+                                            body: JSON.stringify({id, nombre, tipo, descripcion})
+                                        })
+                                        const res = await data.json()
+                                        if (res.estado){
+                                            window.location.href = '/chars'
+                                        } else {
+                                            console.log(res)
+                                        }
+                                    })
+                                </script>

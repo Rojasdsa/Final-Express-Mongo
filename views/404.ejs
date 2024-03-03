@@ -1,0 +1,17 @@
+<%- include("template/cabecera", {tituloWeb: 'Error 404' }) %>
+
+   <div class="d-flex justify-content-center">
+      <h2 class="text-center mt-3 mb-5 col-6 rounded-5">
+         <%= titulo %>
+      </h2>
+   </div>
+   <div class="d-flex justify-content-center">
+      <p class="text-center mt-3 col-4 p-4 bg-warning text-dark fw-medium rounded-3">
+         <%= descripcion %>
+      </p>
+   </div>
+
+   <div class="container text-center">
+      <a class="btn btn-secondary" href="/chars">Volver</a>
+   </div>
+   <%- include("template/footer") %>

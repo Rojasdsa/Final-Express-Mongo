@@ -1,0 +1,139 @@
+<%- include("template/cabecera", {tituloWeb: 'Panel de Administración' }) %>
+
+    <div class="container">
+        <h1 class="text-center">CRUD MongoDB</h1>
+
+        <!-- Botón para crear Pj -->
+        <div class="text-center">
+            <a href="#crearPersonajeModal" class="btn btn-success btn-block my-4" data-bs-toggle="modal"
+                data-bs-target="#crearPersonajeModal">
+                Añadir personaje
+            </a>
+            <a class="btn btn-info mx-1" href="contacto">
+                <i class="fa-solid fa-paper-plane"></i>
+            </a>
+        </div>
+
+        <!-- Modal para crear Pj -->
+        <div class="modal fade text-dark" id="crearPersonajeModal" tabindex="-1" role="dialog"
+            aria-labelledby="crearPersonajeModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="crearPersonajeModalLabel">Añadir personaje</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="/chars" class="my-2" method="POST">
+                            <input type="text" placeholder="Nombre" class="form-control my-2" name="nombre">
+                            <input type="text" placeholder="Casa" class="form-control my-2" name="casa">
+                            <input type="text" placeholder="Estado" class="form-control my-2" name="estado">
+                            <input type="text" placeholder="Edad" class="form-control my-2" name="edad">
+                            <input type="text" placeholder="Titulo" class="form-control my-2" name="titulo">
+                    </div>
+                    <div class="modal-footer d-flex justify-content-center">
+                        <button type="submit" class="btn btn-success btn-block">Agregar</button>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <table class="table">
+            <thead>
+                <tr class="text-center">
+                    <th scope="col" class="text-start">Nombre</th>
+                    <th scope="col">Casa</th>
+                    <th scope="col">Estado</th>
+                    <th scope="col">Edad</th>
+                    <th scope="col">Título</th>
+                    <th scope="col">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- COMPRUEBA QUE EXISTEN ELEMENTOS -->
+                <% if (arrayChar.length> 0) { %>
+                    <!-- RECORREMOS ARRAY CON FOREACH -->
+                    <% arrayChar.forEach(char=> { %>
+                        <!-- AQUÍ SE MUESTRAN TODOS LOS PJ EN UNA TABLA -->
+                        <tr class="text-center align-middle">
+                            <td class="fw-medium text-start" scope="row">
+                                <%= char.nombre %>
+                            </td>
+                            <td>
+                                <%= char.casa %>
+                            </td>
+                            <td>
+                                <%= char.estado %>
+                            </td>
+                            <td>
+                                <%= char.edad %>
+                            </td>
+                            <td>
+                                <%= char.titulo %>
+                            </td>
+
+                            <td class="d-flex align-items-center justify-content-center">
+                                <!-- Botón para editar Pj -->
+                                <a href="#editarPersonajeModal<%= char._id %>" class="btn btn-warning mx-1"
+                                    data-bs-toggle="modal" data-bs-target="#editarPersonajeModal<%= char._id %>">
+                                    <i class="fa fa-pen"></i>
+                                </a>
+
+                                <!-- Modal editar pj -->
+                                <div class="modal fade text-dark" id="editarPersonajeModal<%= char._id %>" tabindex="-1"
+                                    role="dialog" aria-labelledby="editarPersonajeModalLabel<%= char._id %>"
+                                    aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="crearPersonajeModalLabel">Editar personaje
+                                                </h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close">
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form id="editar<%= char._id %>" data-id="<%= char._id %>">
+                                                    <input type="text" value="<%=char.nombre %>"
+                                                        class="form-control my-2" name="nombre" id="nombreInput">
+                                                    </input>
+                                                    <input type="text" value="<%=char.casa %>" class="form-control my-2"
+                                                        name="casa" id="casaInput">
+                                                    </input>
+                                                    <input type="text" value="<%=char.estado %>"
+                                                        class="form-control my-2" name="estado" id="estadoInput">
+                                                    </input>
+                                                    <input type="text" value="<%=char.edad %>" class="form-control my-2"
+                                                        name="edad" id="edadInput">
+                                                    </input>
+                                                    <input type="text" value="<%=char.titulo %>"
+                                                        class="form-control my-2" name="titulo" id="tituloInput">
+                                                    </input>
+                                            </div>
+                                            <div class="modal-footer d-flex justify-content-center">
+                                                <button class="btn btn-primary btn-sm"
+                                                    data-id="<%= char._id %>">Actualizar</button>
+                                            </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Botón para eliminar Pj -->
+                                <a href="#eliminarPersonajeModal<%= char._id %>" class="btn btn-danger btn-block"
+                                    data-bs-toggle="modal" data-bs-target="#eliminarPersonajeModal<%= char._id %>"
+                                    data-id="<%= char._id %>">
+                                    <i class="fa fa-trash"></i>
+                                </a>
+
+                            </td>
+                        </tr>
+                        <% }) %>
+                            <% } %>
+            </tbody>
+        </table>
+    </div>
+
+    <%- include("template/footer") %>
