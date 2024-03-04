@@ -56,27 +56,37 @@ router.get('/:id', async (req, res) => {
 
 router.put('/:id', async (req, res) => {
     const id = req.params.id;
-    const body = req.body;
-    console.log(id)
-    console.log('body', body)
+    const { nombre, casa, estado, edad, titulo } = req.body; // Destructuramos los campos que esperamos
+    console.log(id);
+    console.log('body', req.body);
 
-    try{
-        const charsDB = await Personaje.findByIdAndUpdate(
-            id, body, {useFindAndModify: false}
-        )
-        console.log(charsDB)
-        res.json({
-            estado: true,
-            mensaje: 'Personaje editado'
-        })
-    } catch (error){
-        console.log(error)
+    try {
+        const updatedChar = await Personaje.findByIdAndUpdate(
+            id,
+            { nombre, casa, estado, edad, titulo }, // Solo actualizamos los campos esperados
+            { useFindAndModify: false, new: true } // El parámetro new: true devuelve el documento actualizado
+        );
+        console.log(updatedChar);
+        if (updatedChar) {
+            res.json({
+                estado: true,
+                mensaje: 'Personaje editado'
+            });
+        } else {
+            res.json({
+                estado: false,
+                mensaje: 'No se encontró el personaje para editar'
+            });
+        }
+    } catch (error) {
+        console.log(error);
         res.json({
             estado: false,
             mensaje: 'Problema al editar el personaje'
-        })
+        });
     }
-})
+});
+
 
 // RUTA ELIMINAR PERSONAJE
 router.delete('/:id', async (req, res) => {

@@ -28,26 +28,30 @@ btnEliminar.forEach(btn => {
 });
 
 // Script para editar Personaje
-const formEditar = document.querySelector('#editar');
-formEditar.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const nombre = formEditar.elements['nombre'].value;
-    const casa = formEditar.elements['casa'].value;
-    const estado = formEditar.elements['estado'].value;
-    const edad = formEditar.elements['edad'].value;
-    const titulo = formEditar.elements['titulo'].value;
-    const _id = formEditar.dataset.id;
-    const data = await fetch(`/chars/${_id}`, {
-        method: 'PUT',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ nombre, casa, estado, edad, titulo })
+document.addEventListener('DOMContentLoaded', () => {
+    const formsEditar = document.querySelectorAll('#editar');
+    formsEditar.forEach(formEditar => {
+        formEditar.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const nombre = formEditar.elements['nombre'].value;
+            const casa = formEditar.elements['casa'].value;
+            const estado = formEditar.elements['estado'].value;
+            const edad = formEditar.elements['edad'].value;
+            const titulo = formEditar.elements['titulo'].value;
+            const _id = formEditar.dataset.id;
+            const data = await fetch(`/chars/${_id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ nombre, casa, estado, edad, titulo })
+            });
+            const res = await data.json();
+            if (res.estado) {
+                window.location.href = '/chars';
+            } else {
+                console.log(res);
+            }
+        });
     });
-    const res = await data.json();
-    if (res.estado) {
-        window.location.href = '/chars';
-    } else {
-        console.log(res);
-    }
 });

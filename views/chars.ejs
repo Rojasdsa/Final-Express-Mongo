@@ -83,7 +83,7 @@
 
                                 <!-- Modal editar pj -->
                                 <div class="modal fade text-dark" id="editarPersonajeModal<%= char._id %>" tabindex="-1"
-                                    role="dialog" aria-labelledby="editarPersonajeModalLabel<%= char._id %>"
+                                    role="dialog" aria-labelledby="editarPersonajeModalLabel"
                                     aria-hidden="true">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
@@ -95,7 +95,7 @@
                                                 </button>
                                             </div>
                                             <div class="modal-body">
-                                                <form id="editar<%= char._id %>" data-id="<%= char._id %>">
+                                                <form id="editar" data-id="<%= char._id %>">
                                                     <input type="text" value="<%=char.nombre %>"
                                                         class="form-control my-2" name="nombre" id="nombreInput">
                                                     </input>
@@ -113,14 +113,13 @@
                                                     </input>
                                             </div>
                                             <div class="modal-footer d-flex justify-content-center">
-                                                <button class="btn btn-primary btn-sm"
+                                                <button class="btn btn-primary btn-sm" type="submit"
                                                     data-id="<%= char._id %>">Actualizar</button>
                                             </div>
                                             </form>
                                         </div>
                                     </div>
                                 </div>
-
                                 <!-- Botón para eliminar Pj -->
                                 <a href="#eliminarPersonajeModal<%= char._id %>" class="btn btn-danger btn-block"
                                     data-bs-toggle="modal" data-bs-target="#eliminarPersonajeModal<%= char._id %>"
