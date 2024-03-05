@@ -1,31 +1,26 @@
 'use strict'
 
 // Script para eliminar Personaje
-const btnEliminar = document.querySelectorAll('.eliminarBtn'); // Selecciona todos los botones de eliminar
-btnEliminar.forEach(btn => {
-    btn.addEventListener('click', () => {
-        const personajeId = btn.dataset.id; // Obtén el ID del personaje del botón que se hizo clic
-        const formId = `#eliminarForm${personajeId}`;
-        const form = document.querySelector(formId);
-        form.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            try {
-                const data = await fetch(`/chars/${personajeId}`, {
-                    method: 'DELETE'
+document.addEventListener('DOMContentLoaded', () => {
+    const botonesEliminar = document.querySelectorAll('#eliminar');
+    botonesEliminar.forEach(boton => {
+        boton.addEventListener('click', async (e) => {
+            const id = boton.dataset.id;
+                const data = await fetch(`/chars/${id}`, {
+                    method: 'DELETE',
                 });
                 const res = await data.json();
-                console.log(res);
                 if (res.estado) {
-                    window.location.href = '/chars';
+                    // Recargar la página o actualizar según necesidad
+                    window.location.reload();
                 } else {
-                    console.log(res);
+                    console.error('Error al eliminar el personaje:', res.error);
+                    // Mostrar mensaje de error o realizar otra acción según necesidad
                 }
-            } catch (error) {
-                console.log(error);
-            }
         });
     });
 });
+
 
 // Script para editar Personaje
 document.addEventListener('DOMContentLoaded', () => {

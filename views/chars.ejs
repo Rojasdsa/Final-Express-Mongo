@@ -83,8 +83,7 @@
 
                                 <!-- Modal editar pj -->
                                 <div class="modal fade text-dark" id="editarPersonajeModal<%= char._id %>" tabindex="-1"
-                                    role="dialog" aria-labelledby="editarPersonajeModalLabel"
-                                    aria-hidden="true">
+                                    role="dialog" aria-labelledby="editarPersonajeModalLabel" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
@@ -120,6 +119,7 @@
                                         </div>
                                     </div>
                                 </div>
+
                                 <!-- Botón para eliminar Pj -->
                                 <a href="#eliminarPersonajeModal<%= char._id %>" class="btn btn-danger btn-block"
                                     data-bs-toggle="modal" data-bs-target="#eliminarPersonajeModal<%= char._id %>"
@@ -127,6 +127,30 @@
                                     <i class="fa fa-trash"></i>
                                 </a>
 
+                                <!-- Modal eliminar pj -->
+                                <div class="modal fade text-dark" id="eliminarPersonajeModal<%= char._id %>"
+                                    tabindex="-1" role="dialog" aria-labelledby="eliminarPersonajeModalLabel"
+                                    aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="crearPersonajeModalLabel">Eliminar personaje
+                                                </h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close">
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <h4>¿Quieres eliminar a <span class="text-warning"><%=char.nombre %></span> ?</h4>
+                                            </div>
+                                            <div class="modal-footer d-flex justify-content-center">
+                                                <button id="eliminar" class="btn btn-danger btn-sm" type="submit"
+                                                    data-id="<%= char._id %>">Eliminar</button>
+                                            </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
                             </td>
                         </tr>
                         <% }) %>
