@@ -25,7 +25,7 @@ app.use('/', require('./router/rutas'));
 app.use('/chars', require('./router/chars'));
 
 const user = 'ilernabasura';
-const password = 'f4TevtWBVa5a44zj';
+const password = 'NjRmAgOKf2lXNsLY';
 const dbname = 'GOT';
 const uri = `mongodb+srv://${process.env.user}:${process.env.password}@mongodb-f.aqsulkg.mongodb.net/${process.env.dbname}?retryWrites=true&w=majority`;
 
